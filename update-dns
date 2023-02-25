@@ -14,7 +14,7 @@ if [ "$IFACE" = wlan0 -a "$ADDRFAM" = inet6 ]; then
   \"comment\": \"Updated at ${TIMESTAMP}\",
   \"content\": \"${NEW_ADDR}\",
   \"name\": \"${SITE_NAME}\",
-  \"proxied\": false,
+  \"proxied\": true,
   \"type\": \"AAAA\",
   \"ttl\": 1
 }"
