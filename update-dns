@@ -5,8 +5,8 @@
 NEW_ADDR=`ip -6 addr show dev wlan0 | awk '/inet6 '"${IP_PREFIX}"'/ {last=$2} END{print substr(last, 1, length(last)-3)}'`
 TIMESTAMP=`date`
 
-if [ "$IFACE" = wlan0 -a "$ADDRFAM" = inet6 ]; then
-  echo "${TIMESTAMP}: Updated DNS to ${NEW_ADDR}" >> "${HOME_DIR}/wlan0.log"
+if [ "$IFACE" = wlan0 -a "$ADDRFAM" = inet6 -a ! -z "${NEW_ADDR}" ]; then
+  echo "[dhcp6-change]${TIMESTAMP}: Updated DNS to ${NEW_ADDR}" >> "${HOME_DIR}/wlan0.log"
   curl --location --request PUT "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/dns_records/${DNS_RECORD_ID}" \
 --header "Authorization: Bearer ${DNS_API_TOKEN}" \
 --header 'Content-Type: application/json' \
